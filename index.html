@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday Rachita! ✨🎂 | 15th November</title>
+  <meta name="description" content="A special birthday celebration card crafted with memories and love for Rachita.">
+  <meta name="theme-color" content="#1a0b2e">
+
+  <!-- Open Graph for WhatsApp and Social Previews -->
+  <meta property="og:title" content="Happy Birthday Rachita! ✨🎂">
+  <meta property="og:description" content="A magical celebration card filled with our favorite memories, music, and wishes!">
+  <meta property="og:image" content="assets/images/portrait_kurti.jpeg">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External Confetti Library (fallback built-in) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Ambience & Canvas Particles -->
+  <canvas id="fireworksCanvas"></canvas>
+  <div class="stars-container" id="starsContainer"></div>
+  <div class="floating-elements-layer" id="floatingElements"></div>
+
+  <!-- Audio Element for celebration music -->
+  <audio id="bgAudio" src="assets/celebration_ambient.mp3" preload="auto" loop></audio>
+
+  <!-- ==============================================
+       OVERLAY 1: MIDNIGHT COUNTDOWN / UNLOCK ENVELOPE
+       ============================================== -->
+  <div id="welcomeOverlay" class="welcome-overlay">
+    <div class="welcome-card">
+      <div class="sparkle-crown">👑</div>
+      <div class="badge-special">15th November Special</div>
+      <h1 class="welcome-title">For Rachita</h1>
+      <p class="welcome-subtitle">A special celebration created just for you</p>
+
+      <!-- Midnight Countdown Box -->
+      <div id="countdownSection" class="countdown-box">
+        <div class="countdown-heading">Countdown to Midnight Celebration</div>
+        <div class="countdown-grid">
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdHours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdMinutes">00</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdSeconds">00</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Envelope / Gift Box Graphic -->
+      <div class="gift-box-wrapper" id="giftBoxTrigger">
+        <div class="gift-box">
+          <div class="gift-box-ribbon-v"></div>
+          <div class="gift-box-ribbon-h"></div>
+          <div class="gift-bow">🎀</div>
+          <div class="gift-initial">R</div>
+        </div>
+        <div class="glow-pulse"></div>
+      </div>
+
+      <p class="tap-hint">Tap below to enter with music & magic ✨</p>
+
+      <button id="openSurpriseBtn" class="primary-btn pulse-button">
+        <span class="btn-icon">🎁</span>
+        <span>Open Birthday Surprise</span>
+        <span class="music-indicator">🎵</span>
+      </button>
+
+      <div class="sender-tag">Created with warm thoughts by <strong>Ranjan</strong></div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       STICKY FLOATING CONTROLLER BAR
+       ============================================== -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <span class="brand-sparkle">✨</span>
+      <span class="brand-text">Rachita's Day</span>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Music Toggle Pill -->
+      <div class="music-pill" id="musicToggleBtn" title="Toggle Music">
+        <div class="equalizer-bars" id="eqBars">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <span id="musicStatusText" class="music-label">Music: Playing</span>
+      </div>
+
+      <!-- Quick Confetti Trigger -->
+      <button class="nav-icon-btn" id="navConfettiBtn" title="Celebrate with Confetti!">
+        🎉
+      </button>
+
+      <!-- Slideshow Trigger -->
+      <button class="nav-icon-btn" id="navSlideshowBtn" title="Play Memory Slideshow">
+        📽️
+      </button>
+    </div>
+  </header>
+
+  <!-- ==============================================
+       MAIN CARD CONTENT
+       ============================================== -->
+  <main class="main-container">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-sparkle-top">✦ ✧ ✦</div>
+      <div class="date-badge">15th November 2026</div>
+      <h1 class="hero-title">Happy Birthday, <br><span class="hero-name">Rachita!</span></h1>
+      <p class="hero-tagline">To one of the brightest smiles, kindest souls, and most wonderful friends anyone could ever ask for.</p>
+
+      <div class="hero-cta-group">
+        <a href="#cakeSection" class="action-chip"><span class="chip-icon">🎂</span> Blow Candles</a>
+        <a href="#memoryLane" class="action-chip"><span class="chip-icon">📸</span> Memory Lane</a>
+        <a href="#letterSection" class="action-chip"><span class="chip-icon">💌</span> Special Letter</a>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE BIRTHDAY CAKE SECTION -->
+    <section class="cake-section" id="cakeSection">
+      <div class="section-badge">Make A Wish</div>
+      <h2 class="section-heading">The Birthday Cake</h2>
+      <p class="section-desc">Close your eyes, make a heart-felt wish, and tap the candles to blow them out!</p>
+
+      <div class="cake-container">
+        <!-- Floating wish message shown after blowing candles -->
+        <div id="candleWishMessage" class="wish-reveal-box hidden">
+          <div class="wish-icon">🌟</div>
+          <div class="wish-text-bold">Wish Sent to the Universe!</div>
+          <p class="wish-subtext">May all your dreams blossom into reality this year, Rachita! Keep shining brightly!</p>
+        </div>
+
+        <!-- Interactive 3D Cake SVG / CSS -->
+        <div class="cake-stage" id="cakeStage">
+          <!-- Candles Layer -->
+          <div class="candles-row" id="candlesRow">
+            <div class="candle candle-1">
+              <div class="flame" id="flame1"></div>
+              <div class="wick"></div>
+              <div class="candle-body"></div>
+            </div>
+            <div class="candle candle-2">
+              <div class="flame" id="flame2"></div>
+              <div class="wick"></div>
+              <div class="candle-body"></div>
+            </div>
+            <div class="candle candle-3">
+              <div class="flame" id="flame3"></div>
+              <div class="wick"></div>
+              <div class="candle-body"></div>
+            </div>
+          </div>
+
+          <!-- Cake Layers -->
+          <div class="cake-layer layer-top">
+            <div class="cake-icing"></div>
+            <div class="cake-cherries">
+              <span>🍓</span><span>🍒</span><span>🍓</span>
+            </div>
+          </div>
+          <div class="cake-layer layer-middle">
+            <div class="layer-trim"></div>
+          </div>
+          <div class="cake-layer layer-bottom">
+            <div class="layer-trim-bottom"></div>
+            <div class="cake-plate"></div>
+          </div>
+        </div>
+
+        <!-- Blow Candle Button -->
+        <button id="blowCandleBtn" class="blow-btn">
+          <span class="blow-btn-icon">🕯️💨</span>
+          <span id="blowBtnText">Blow Out the Candles</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PHOTO MEMORY LANE (ALL 11 PICTURES IN BEAUTIFUL STORY CHAPTERS) -->
+    <section class="memory-section" id="memoryLane">
+      <div class="section-badge">Treasured Moments</div>
+      <h2 class="section-heading">The Memory Lane</h2>
+      <p class="section-desc">From childhood achievements to college halls and our happiest smiles together.</p>
+
+      <!-- Category Filter Tabs -->
+      <div class="gallery-tabs">
+        <button class="tab-btn active" data-filter="all">All Photos (11)</button>
+        <button class="tab-btn" data-filter="friendship">Ranjan & Rachita</button>
+        <button class="tab-btn" data-filter="campus">Campus & Friends</button>
+        <button class="tab-btn" data-filter="milestone">Elegance & Journey</button>
+      </div>
+
+      <!-- Slideshow Launcher Card -->
+      <div class="slideshow-banner" id="startSlideshowBanner">
+        <div class="slideshow-info">
+          <h3>✨ Watch Our Memory Slideshow</h3>
+          <p>Sit back and enjoy the full-screen photo walkthrough set to celebration melodies.</p>
+        </div>
+        <button class="slideshow-start-btn" id="startSlideshowBtn">
+          ▶ Start Slideshow
+        </button>
+      </div>
+
+      <!-- Photo Grid -->
+      <div class="gallery-grid" id="galleryGrid">
+
+        <!-- PHOTO 1: Childhood Achievement -->
+        <div class="gallery-card polaroid" data-category="milestone" data-index="0">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/childhood.jpeg" alt="Rachita Childhood Achievement" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">⭐ Early Achiever</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">The Little Achiever</h4>
+              <p class="caption-text">2014 primary board felicitation! That proud, quiet determination was visible right from the start. Always destined to do wonders!</p>
+              <div class="caption-date">Kolkata University Board Honor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 2: Traditional Kurti Portrait -->
+        <div class="gallery-card polaroid" data-category="milestone" data-index="1">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/portrait_kurti.jpeg" alt="Rachita Traditional Kurti Portrait" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">✨ Pure Grace</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Grace & Radiance</h4>
+              <p class="caption-text">In peach and white elegance. Lighting up every temple and courtyard with that serene, graceful smile.</p>
+              <div class="caption-date">Traditional Elegance</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 3: Traditional Walk Full Length -->
+        <div class="gallery-card polaroid" data-category="milestone" data-index="2">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/traditional_walk.jpeg" alt="Rachita Traditional Walk" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">🌸 Sunshine</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Stepping in Sunshine</h4>
+              <p class="caption-text">A full-length snapshot full of charm, confidence, and warmth. A genuine presence that everyone admires.</p>
+              <div class="caption-date">Elegance in Motion</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 4: Ranjan & Rachita Selfie Pink Shirt -->
+        <div class="gallery-card polaroid highlight-card" data-category="friendship" data-index="3">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/ranjan_rachita_pink.jpeg" alt="Ranjan and Rachita Selfie" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">💫 Best of Us</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Warm Smiles & Companionship</h4>
+              <p class="caption-text">One of our favorite casual selfies together. Your bright aura always turns any regular day into a memorable one.</p>
+              <div class="caption-date">Rachita & Ranjan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 5: Ranjan & Rachita Classroom Bench (March 2025) -->
+        <div class="gallery-card polaroid highlight-card" data-category="friendship" data-index="4">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/ranjan_rachita_class.jpeg" alt="Classroom Selfie Shot by Ranjan" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">📸 Shot by Ranjan</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Brainware Classroom Duo</h4>
+              <p class="caption-text">That warm sunny afternoon in lecture hall. Candid smiles, backpack leaning on the desk, and laughter during class breaks!</p>
+              <div class="caption-date">6th March 2025 • Brainware University</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 6: Outdoor Heritage Building Selfie -->
+        <div class="gallery-card polaroid" data-category="friendship" data-index="5">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/ranjan_rachita_outdoor.jpeg" alt="Outdoor Heritage Selfie" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">🏛️ Day Trips</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Heritage Walks & Good Times</h4>
+              <p class="caption-text">Taking a breather outside with old arches behind us. Always ready with that calm, joyful smile for the camera.</p>
+              <div class="caption-date">Outdoor Memories</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 7: Candid Low Angle Desk Selfie -->
+        <div class="gallery-card polaroid" data-category="friendship" data-index="6">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/ranjan_rachita_desk.jpeg" alt="Desk Low Angle Selfie" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">🤭 Goofy Moments</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">The Secret Under-Desk Selfie</h4>
+              <p class="caption-text">Only true friends take spontaneous low-angle selfies under the desk! Pure goofiness and unspoken camaraderie.</p>
+              <div class="caption-date">Classroom Shenanigans</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 8: Classroom Standing Portrait -->
+        <div class="gallery-card polaroid" data-category="campus" data-index="7">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/classroom_standing.jpeg" alt="Rachita in Empty Lecture Hall" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">🎒 Campus Life</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Hall of Learning</h4>
+              <p class="caption-text">Among the red benches and university boards, standing poised and cheerful. The heartbeat of our class circle!</p>
+              <div class="caption-date">Brainware University Corridors</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 9: Active Classroom Interaction -->
+        <div class="gallery-card polaroid" data-category="campus" data-index="8">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/classroom_lecture.jpeg" alt="Interactive Lecture Discussion" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">💡 Ever Curious</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Engaged & Spirited</h4>
+              <p class="caption-text">Mid-discussion with the professor and friends! Always attentive, asking questions, and lighting up class discussions.</p>
+              <div class="caption-date">Classroom Vibes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 10: Night Event Gathering -->
+        <div class="gallery-card polaroid" data-category="campus" data-index="9">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/campus_night_event.jpeg" alt="Campus Fest Night Event" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">🌙 Fest Nights</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">Lights, Laughter & College Fest</h4>
+              <p class="caption-text">Under the fest lights with yellow lanyards and bright smiles. Even after long days, that glow never fades.</p>
+              <div class="caption-date">Evening Celebrations</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO 11: University Blue T-shirt Stairs Selfie -->
+        <div class="gallery-card polaroid" data-category="campus" data-index="10">
+          <div class="card-inner">
+            <div class="photo-wrapper">
+              <img src="assets/images/campus_group_stairs.jpeg" alt="University Stairs Group Selfie" loading="lazy">
+              <div class="photo-overlay">
+                <span class="zoom-indicator">🔍 Tap to Zoom</span>
+              </div>
+              <div class="photo-tag">💙 Campus Squad</div>
+            </div>
+            <div class="polaroid-caption">
+              <h4 class="caption-title">The Staircase Crew</h4>
+              <p class="caption-text">All united in the Brainware Innovation blue tees! Smiles, staircase steps, and a friendship circle that makes college worthwhile.</p>
+              <div class="caption-date">October 2025 • Brainware Innovation</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SPECIAL QUALITIES / WHY RACHITA IS UNIQUE -->
+    <section class="qualities-section">
+      <div class="section-badge">To Rachita</div>
+      <h2 class="section-heading">What Makes You So Special</h2>
+      <p class="section-desc">Just a few reasons why having you as a friend is a true privilege.</p>
+
+      <div class="qualities-grid">
+        <div class="quality-card">
+          <div class="quality-icon">✨</div>
+          <h3>Infectious Positivity</h3>
+          <p>Even on chaotic college assignment days, your gentle demeanor and cheerful aura have a way of calming everyone down.</p>
+        </div>
+
+        <div class="quality-card">
+          <div class="quality-icon">🎯</div>
+          <h3>Quiet Determination</h3>
+          <p>From childhood awards to modern university goals, you work sincerely towards what you believe in without needing to brag.</p>
+        </div>
+
+        <div class="quality-card">
+          <div class="quality-icon">💖</div>
+          <h3>A True, Loyal Friend</h3>
+          <p>Someone who listens, supports, laughs heartily, and stands by your side through every chapter of college life.</p>
+        </div>
+
+        <div class="quality-card">
+          <div class="quality-icon">🌟</div>
+          <h3>Naturally Graceful</h3>
+          <p>Whether in casual classroom gear or stunning traditional wear, you carry yourself with unmatched poise and sincerity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONAL BIRTHDAY LETTER FROM RANJAN -->
+    <section class="letter-section" id="letterSection">
+      <div class="section-badge">From The Heart</div>
+      <h2 class="section-heading">A Letter for Your Special Day</h2>
+
+      <div class="parchment-letter">
+        <div class="letter-seal">R</div>
+        <div class="letter-date">15th November 2026</div>
+        <div class="letter-salutation">Dear Rachita,</div>
+
+        <div class="letter-body">
+          <p>Happy Birthday! 🎂✨ As the clock turns to 15th November, I wanted to take a moment to celebrate you and remind you how truly special you are.</p>
+          <p>Looking back at our photos — from the quiet lectures at Brainware University to spontaneous desk selfies, festival nights, and all the little moments in between — I am so grateful to have you as my friend. Your smile has an effortless way of bringing warmth and light to every room you walk into.</p>
+          <p>I hope this coming year brings you abundant happiness, vibrant health, exciting opportunities, and that every dream you have been nurturing turns into reality. Never let anyone dim the calm, beautiful spark you carry inside.</p>
+          <p>Enjoy every single second of your birthday today. You deserve all the joy, love, and sweet surprises this world has to offer!</p>
+        </div>
+
+        <div class="letter-closing">
+          <span>Always cheering for you,</span>
+          <strong class="letter-signature">Ranjan</strong>
+        </div>
+
+        <div class="letter-flourish">~ ✦ ~</div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE WISH / CELEBRATION ZONE -->
+    <section class="celebration-zone">
+      <div class="section-badge">Party Central</div>
+      <h2 class="section-heading">Send Birthday Energy!</h2>
+      <p class="section-desc">Tap the buttons below to trigger instant celebratory reactions on screen!</p>
+
+      <div class="action-buttons-wrap">
+        <button class="celebrate-btn" id="btnConfettiExplosion">
+          <span class="btn-emoji">🎊</span>
+          <span class="btn-title">Confetti Blast</span>
+        </button>
+
+        <button class="celebrate-btn" id="btnReleaseBalloons">
+          <span class="btn-emoji">🎈</span>
+          <span class="btn-title">Float Balloons</span>
+        </button>
+
+        <button class="celebrate-btn" id="btnVirtualToast">
+          <span class="btn-emoji">🥂</span>
+          <span class="btn-title">Birthday Toast</span>
+        </button>
+
+        <button class="celebrate-btn" id="btnShowerHearts">
+          <span class="btn-emoji">💖</span>
+          <span class="btn-title">Love & Hugs</span>
+        </button>
+      </div>
+
+      <div class="wish-counter-pill">
+        <span class="counter-label">Celebration Sparkles Generated:</span>
+        <span class="counter-val" id="sparkleCounter">0</span>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+      <div class="footer-cake">🎂 ✦ 🎁 ✦ 🌟</div>
+      <p class="footer-main">Happy Birthday, Rachita! • 15th November</p>
+      <p class="footer-sub">Handcrafted with heartfelt memories & best wishes by <strong>Ranjan</strong></p>
+      <div class="back-to-top">
+        <a href="#welcomeOverlay" id="replayGreetingBtn">↺ Replay Welcome Animation</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==============================================
+       FULLSCREEN LIGHTBOX MODAL
+       ============================================== -->
+  <div id="photoLightbox" class="lightbox-modal">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxCloseBtn" title="Close (Esc)">✕</button>
+
+      <div class="lightbox-image-box">
+        <img id="lightboxImg" src="" alt="Enlarged Memory">
+        <button class="nav-arrow prev-arrow" id="lightboxPrevBtn" title="Previous (Left arrow)">‹</button>
+        <button class="nav-arrow next-arrow" id="lightboxNextBtn" title="Next (Right arrow)">›</button>
+      </div>
+
+      <div class="lightbox-details">
+        <div class="lightbox-counter" id="lightboxCounter">Photo 1 of 11</div>
+        <h3 class="lightbox-title" id="lightboxTitle">Memory Title</h3>
+        <p class="lightbox-desc" id="lightboxDesc">Caption text goes here.</p>
+        <div class="lightbox-actions">
+          <button class="reaction-heart-btn" id="lightboxHeartBtn">❤️ Loved this moment (<span id="lightboxHeartCount">1</span>)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
